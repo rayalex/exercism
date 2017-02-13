@@ -28,7 +28,6 @@ defmodule NucleotideCount do
   """
   @spec histogram([char]) :: map
   def histogram(strand) do
-    histogram = %{?A => 0, ?T => 0, ?C => 0, ?G => 0}
-    for {k, v} <- Enum.group_by(strand, &(&1)), into: histogram, do: {k, Enum.count(v)}
+    Enum.into(@nucleotides, %{}, &({&1, count(strand, &1)}))
   end
 end
