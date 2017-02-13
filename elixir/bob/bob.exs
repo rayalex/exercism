@@ -9,14 +9,15 @@ defmodule Bob do
   end
 
   defp is_shouting(phrase) do
+    # Can this be packed into a single RegEx?
     String.upcase(phrase) == phrase and Regex.match?(~r/\p{L}+/, phrase)
   end
 
   defp is_empty(phrase) do
-    String.length(String.trim(phrase)) == 0
+    Regex.match?(~r/^\s*$/, phrase)
   end
 
   defp is_question(phrase) do
-    String.ends_with?(phrase, "?")
+    Regex.match?(~r/\?$/, phrase)
   end
 end
