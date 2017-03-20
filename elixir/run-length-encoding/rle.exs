@@ -2,6 +2,7 @@ defmodule RunLengthEncoder do
 
   @rle_encode ~r/(\w)\1*/
   @rle_decode ~r/(\d+)(\w)/
+
   @doc """
   Generates a string where consecutive elements are represented as a data value and count.
   "AABBBCCCC" => "2A3B4C"
@@ -15,15 +16,16 @@ defmodule RunLengthEncoder do
   end
 
   defp reduce(capture, symbol) do
-    case String.length(capture) do
+    length = String.length(capture)
+    case length do
       1 -> symbol
-      _ -> "#{String.length(capture)}#{symbol}"
+      _ -> "#{length}#{symbol}"
     end
   end
 
   @spec decode(String.t) :: String.t
   def decode(string) do
-    render = fn (c, n, x) -> String.duplicate(x, String.to_integer(n)) end
+    render = fn (_, repeat, symbol) -> String.duplicate(symbol, String.to_integer(repeat)) end
     Regex.replace(@rle_decode, string, render)
   end
 end
