@@ -3,7 +3,7 @@ defmodule RunLengthEncoder do
   # Note (to highly unlikely readers): This implementation is not optimal due to couple of reasons:
   # 1. Is uses regular expressions
   # 2. It does not support anything other than regular strings
-  # Thus, at some point in future, RLE should be implemented using just the regular functions and pattern matching. 
+  # Thus, at some point in future, RLE should be implemented using just the plain functions and pattern matching. 
 
   @rle_encode ~r/(\w)\1*/
   @rle_decode ~r/(\d+)(\w)/
